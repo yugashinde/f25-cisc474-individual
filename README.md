@@ -58,15 +58,15 @@ A repo that you can fork to make new projects
     - For your Root Directory, use `./`
     - For Instance Type, choose "Free $0/month"
     - In the Environment Variables, add the following:
-      - `DATABASE_URL`: The connection string for your database from the Supabase dashboard
-      - `DIRECT_URL`: The Transaction Pooler connection string for your database from the Supabase dashboard
+      - `DATABASE_URL`: The pooled connection string using port 6543 - see example below
+      - `DIRECT_URL`: The direct pooled connection string using port 5432 - See example below
     - Click the Deploy button
 - Set up your local `.env` file:
   - Take a look at the details in the Connection string, and replace the information below in a new `.env` file at the same level as this `README.md` file.
 
 ```
-DATABASE_URL="postgres://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1"
-DIRECT_URL="postgres://postgres:[pwd]@db.[ref].supabase.co:5432/postgres"
+DATABASE_URL="postgres://postgres.[ref]:[password]@aws-1-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1"
+DIRECT_URL="postgres://postgres.[ref]:[password]@aws-1-us-east-1.pooler.supabase.com:5432/postgres"
 ```
 
 Then, you can make the first push of your initial database setup: `npx prisma db push`
