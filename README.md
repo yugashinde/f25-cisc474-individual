@@ -1,3 +1,41 @@
+User Stories 
+Student 
+As a student, I want to access modules so that I have an overview of what a week/month of a specific course looks like to help me with time management 
+
+As a student, I want to be able to submit assignments in multiple formats (e.g. pdf, word, code, links) so that I am able to complete all types of assignments 
+ 
+As a student, I want to be able to access my grades so that I know how I'm doing in a class.
+
+As a student I want to be able to request to be in a course so that I can get access to all course work. 
+
+Professor 
+As a professor, I want to be able to assign all types of assignments so that my students can get a well rounded curriculum 
+
+As a professor, I want to be able to plan modules ahead of time and release them when the lesson plan is done so that I can plan ahead of time
+
+As a professor, I want to be able to grade assignments on the application itself so that everything is concise and in the same place
+
+TAs
+As a TA, I want to be able to grade assignments on the application itself so that everything is concise and in the same place
+
+Admin 
+As an administrator, I want to be able to approve/deny student requests so that there exists a streamline process of students being able to access there course material
+
+As an administrator, I want access to all student and faculty information (e.g. what classes a student is enrolled in [for approval of request], which faculty is teaching how many courses etc) 
+
+As an administrator, I want to be able to search engines to find faculty/students so that information can be easily accessible. 
+
+
+WireFrames 
+- file:///Users/yugandharashinde/Downloads/LMS%20wireframe.pdf
+
+Site Map
+- file:///Users/yugandharashinde/Downloads/Your%20First%20Project%20(1).pdf
+
+
+
+
+
 # cisc474-project-starter
 
 A repo that you can fork to make new projects
