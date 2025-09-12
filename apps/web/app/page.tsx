@@ -1,6 +1,7 @@
 import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
+import Link from 'next/link'
 
 type Props = Omit<ImageProps, "src"> & {
     srcLight: string;
@@ -22,7 +23,8 @@ export default function Home() {
     return (
         <div className={styles.page}>
             <main className={styles.main}>
-                <h1>CISC474 Project Starter</h1>
+                <h1>Pending Sign In/Log In SET UP</h1>
+                <Link href="/blog/dashboard">Dashboard</Link>
                 <ol>
                     <li>
                         Get started by editing{" "}
