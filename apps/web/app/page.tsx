@@ -22,6 +22,7 @@ const ThemeImage = (props: Props) => {
 export default function Home() {
     return (
         <div className={styles.page}>
+            <div className = {styles.roundedBorders}> 
             <main className={styles.main}>
                 <h1>Pending Sign In/Log In SET UP</h1>
                 <Link href="/blog/dashboard">Dashboard</Link>
@@ -67,6 +68,7 @@ export default function Home() {
                     Go to turborepo.com →
                 </a>
             </footer>
+            </div>
         </div>
     );
 }

@@ -1,0 +1,49 @@
+.page{
+    background-color: rgb(124, 4, 62);
+    display: grid;
+  grid-template-rows: 20px 1fr 20px;
+  align-items: center;
+  justify-items: center;
+  min-height: 100svh;
+  padding: 80px;
+  gap: 64px;
+  font-synthesis: none;
+}
+
+.gradecomponent{
+    padding: 50px;
+    background-color: #aaa9a9;
+    border-radius: 15px; /* Applies a 15px radius to all corners */
+    display: flex;
+    flex-direction: row; 
+    grid-gap: 100px;
+    border: 1px solid #ccc;
+    justify-content: space-around; 
+
+    
+}
+
+.roundedBorders{
+   
+      border: 2px solid #333; /* Optional: Add a border for visibility */
+        border-radius: 15px; /* Applies a 15px radius to all corners */
+        padding: 20px; /* Optional: Add padding for content spacing */
+        background-color: #e0dfdf; /* Optional: Background color */
+        
+  }
+
+
+.ModuleTitle{
+    
+    height: 15px;
+
+    font-family: 'Josefin Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 32px;
+    text-align: center;
+
+    color: #000000;
+
+}
