@@ -1,0 +1,73 @@
+[
+    {
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0101",
+      "role": "STUDENT"
+    },
+    {
+      "name": "Bob Smith",
+      "email": "bob.smith@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0102",
+      "role": "STUDENT"
+    },
+    {
+      "name": "Carla Davis",
+      "email": "carla.davis@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0103",
+      "role": "STUDENT"
+    },
+    {
+      "name": "David Lee",
+      "email": "david.lee@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0104",
+      "role": "STUDENT"
+    },
+    {
+      "name": "Emily Carter",
+      "email": "emily.carter@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0105",
+      "role": "STUDENT"
+    },
+    {
+      "name": "Frank Moore",
+      "email": "frank.moore@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0106",
+      "role": "STUDENT"
+    },
+    {
+      "name": "Grace Kim",
+      "email": "grace.kim@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0107",
+      "role": "STUDENT"
+    },
+    {
+      "name": "Henry Nguyen",
+      "email": "henry.nguyen@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0108",
+      "role": "STUDENT"
+    },
+    {
+      "name": "Isla Martinez",
+      "email": "isla.martinez@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0109",
+      "role": "STUDENT"
+    },
+    {
+      "name": "Jake Thompson",
+      "email": "jake.thompson@example.com",
+      "emailVerified": "2025-09-19T12:00:00.000Z",
+      "phonenumber": "555-0110",
+      "role": "STUDENT"
+    }
+  ]
+  
