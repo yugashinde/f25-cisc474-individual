@@ -34,16 +34,14 @@ model Student {
   gradYr   DateTime
   major    String
 
-  enrollments Enrollment[]
-  grades      Grade[]
+
 }
 
 model Professor {
   id      Int     @id @default(autoincrement())
   name    String
 
-  courses CourseProfessor[]
-  grades  Grade[]
+ 
 }
 
 model Course {
@@ -51,19 +49,14 @@ model Course {
   name        String
   description String?
 
-  enrollments Enrollment[]
-  grades      Grade[]
-  professors  CourseProfessor[]
+ 
 }
 
 model Enrollment {
   studentId Int
   courseId  Int
 
-  student   Student @relation(fields: [studentId], references: [id])
-  course    Course  @relation(fields: [courseId], references: [id])
-
-  @@id([studentId, courseId])
+ 
 }
 
 model Grade {
@@ -72,19 +65,14 @@ model Grade {
   professorId Int
   grade       Int
 
-  student   Student   @relation(fields: [studentId], references: [id])
-  course    Course    @relation(fields: [courseId], references: [id])
-  professor Professor @relation(fields: [professorId], references: [id])
-
-  @@id([studentId, courseId, professorId])
+  
 }
 
 model CourseProfessor {
   courseId    Int
   professorId Int
 
-  course    Course    @relation(fields: [courseId], references: [id])
-  professor Professor @relation(fields: [professorId], references: [id])
+  
 
-  @@id([courseId, professorId])
+  
 }
