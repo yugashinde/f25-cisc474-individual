@@ -29,23 +29,21 @@ model User {
 }
 
 model Student {
-  id       Int     @id @default(autoincrement())
+  studentId       Int     @id @default(autoincrement())
   name     String
   gradYr   DateTime
   major    String
-
-
 }
 
 model Professor {
-  id      Int     @id @default(autoincrement())
+  professorId      Int     @id @default(autoincrement())
   name    String
 
  
 }
 
 model Course {
-  id          Int     @id @default(autoincrement())
+  courseId          Int     @id @default(autoincrement())
   name        String
   description String?
 
@@ -53,26 +51,27 @@ model Course {
 }
 
 model Enrollment {
-  studentId Int
+  id Int @id @default(autoincrement())
+  studentId Int  
   courseId  Int
 
  
 }
 
+
 model Grade {
-  studentId   Int
-  courseId    Int
-  professorId Int
+  id          Int @id @default(autoincrement())
+  studentId   Int  
+  courseId    Int  
+  professorId Int   
   grade       Int
 
   
 }
 
 model CourseProfessor {
-  courseId    Int
-  professorId Int
+  id          Int @id  @default(autoincrement())
+  courseId    Int  
+  professorId Int 
 
-  
-
-  
 }
