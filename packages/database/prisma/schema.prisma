@@ -68,10 +68,3 @@ model Grade {
 
   
 }
-
-model CourseProfessor {
-  id          Int @id  @default(autoincrement())
-  courseId    Int  
-  professorId Int 
-
-}

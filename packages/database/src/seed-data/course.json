@@ -1,54 +1,27 @@
 [
-    {
-      "id" : 1,
-      "name": "Introduction to Computer Science",
-      "description": "Learn the fundamentals of computer science and programming."
-    },
-    {
-      "id" : 2,
-      "name": "General Biology",
-      "description": "Explore the basics of cellular biology, genetics, and evolution."
-    },
-    
-    {
-      "id" : 3,
-      "name": "Calculus I",
-      "description": "An introduction to differential and integral calculus."
-    },
-    {
-      "id" : 4,
-      "name": "World History",
-      "description": "A survey of global historical events and their impact on society."
-    },
-    {
-      "id" : 5,
-      "name": "Psychology 101",
-      "description": "Understand human behavior through psychological theories and experiments."
-    },
-    {
-      "id" : 6,
-      "name": "Physics for Engineers",
-      "description": "Mechanics, waves, and thermodynamics tailored for engineering students."
-    },
-    {
-      "id" : 7,
-      "name": "Organic Chemistry",
-      "description": "Study the structure, properties, and reactions of organic compounds."
-    },
-    {
-      "id" : 8,
-      "name": "English Literature",
-      "description": "Examine major works of English literature from various time periods."
-    },
-    {
-      "id" : 9,
-      "name": "Microeconomics",
-      "description": "Analyze individual economic decision-making and market behavior."
-    },
-    {
-      "id" : 10,
-      "name": "Ethics in Philosophy",
-      "description": "Explore moral philosophy and ethical reasoning in historical and modern contexts."
-    }
-  ]
-  
+  {
+    "courseId": 1,
+    "name": "Intro to Programming",
+    "description": "Learn the basics of coding in Python."
+  },
+  {
+    "courseId": 2,
+    "name": "Linear Algebra",
+    "description": "Vector spaces, matrices, and linear transformations."
+  },
+  {
+    "courseId": 3,
+    "name": "Organic Chemistry",
+    "description": "Introduction to carbon-based compounds."
+  },
+  {
+    "courseId": 4,
+    "name": "Cell Biology",
+    "description": "Structure and function of cells."
+  },
+  {
+    "courseId": 5,
+    "name": "Quantum Physics",
+    "description": "Principles of quantum mechanics."
+  }
+]

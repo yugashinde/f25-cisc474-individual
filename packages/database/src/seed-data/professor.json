@@ -1,33 +1,22 @@
 [
-    {
-      "name": "Dr. Alice Reynolds"
-    },
-    {
-      "name": "Dr. Benjamin Carter"
-    },
-    {
-      "name": "Dr. Carla Nguyen"
-    },
-    {
-      "name": "Dr. Daniel Kim"
-    },
-    {
-      "name": "Dr. Eva Thompson"
-    },
-    {
-      "name": "Dr. Frank Harris"
-    },
-    {
-      "name": "Dr. Grace Patel"
-    },
-    {
-      "name": "Dr. Henry Lee"
-    },
-    {
-      "name": "Dr. Isabel Martinez"
-    },
-    {
-      "name": "Dr. Jack Morgan"
-    }
-  ]
-  
+  {
+    "professorId": 1,
+    "name": "Dr. Clara Evans"
+  },
+  {
+    "professorId": 2,
+    "name": "Dr. George Hill"
+  },
+  {
+    "professorId": 3,
+    "name": "Dr. Hannah Brown"
+  },
+  {
+    "professorId": 4,
+    "name": "Dr. Ian Scott"
+  },
+  {
+    "professorId": 5,
+    "name": "Dr. Julia White"
+  }
+]
