@@ -32,6 +32,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@nestjs/mapped-types": "*",
     "@prisma/client": "latest"
   },
   "packageManager": "npm@10.9.0",
