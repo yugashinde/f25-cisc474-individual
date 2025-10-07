@@ -50,7 +50,7 @@ model Course {
  
 }
 
-model Enrollment {
+model Enrollnment {
   id Int @id @default(autoincrement())
   studentId Int  
   courseId  Int
