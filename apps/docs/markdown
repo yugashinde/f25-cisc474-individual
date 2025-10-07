@@ -1,0 +1,262 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// adding table structure schema to this file
+//used chat to help with creating relations between the tables 
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+enum ROLE {
+  STUDENT
+  PROFESSOR
+  ADMIN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  phonenumber   String?
+  role          ROLE @default(STUDENT)
+}
+
+model Student {
+  studentId       Int     @id @default(autoincrement())
+  name     String
+  gradYr   DateTime
+  major    String
+}
+
+model Professor {
+  professorId      Int     @id @default(autoincrement())
+  name    String
+
+ 
+}
+
+model Course {
+  courseId          Int     @id @default(autoincrement())
+  name        String
+  description String?
+
+ 
+}
+
+model Enrollment {
+  id Int @id @default(autoincrement())
+  studentId Int  
+  courseId  Int
+
+ 
+}
+
+
+model Grade {
+  id          Int @id @default(autoincrement())
+  studentId   Int  
+  courseId    Int  
+  professorId Int   
+  grade       Int
+
+  
+}
+
+
+
+[
+  {
+    "courseId": 1,
+    "name": "Intro to Programming",
+    "description": "Learn the basics of coding in Python."
+  },
+  {
+    "courseId": 2,
+    "name": "Linear Algebra",
+    "description": "Vector spaces, matrices, and linear transformations."
+  },
+  {
+    "courseId": 3,
+    "name": "Organic Chemistry",
+    "description": "Introduction to carbon-based compounds."
+  },
+  {
+    "courseId": 4,
+    "name": "Cell Biology",
+    "description": "Structure and function of cells."
+  },
+  {
+    "courseId": 5,
+    "name": "Quantum Physics",
+    "description": "Principles of quantum mechanics."
+  }
+]
+
+
+[
+    {
+        "id": 1,
+        "studentId": 1,
+        "courseId": 1
+    },
+    {
+        "id": 2,
+        "studentId": 2,
+        "courseId": 2
+    },
+    {
+        "id": 3,
+        "studentId": 3,
+        "courseId": 3
+    },
+    {
+        "id": 4,
+        "studentId": 4,
+        "courseId": 4
+    },
+    {
+        "id": 5,
+        "studentId": 5,
+        "courseId": 5
+    }
+]
+
+[
+  {
+    "id": 1,
+    "studentId": 1,
+    "courseId": 1,
+    "professorId": 1,
+    "grade": 90
+  },
+  {
+    "id": 2,
+    "studentId": 2,
+    "courseId": 2,
+    "professorId": 2,
+    "grade": 85
+  },
+  {
+    "id": 3,
+    "studentId": 3,
+    "courseId": 3,
+    "professorId": 3,
+    "grade": 88
+  },
+  {
+    "id": 4,
+    "studentId": 4,
+    "courseId": 4,
+    "professorId": 4,
+    "grade": 92
+  },
+  {
+    "id": 5,
+    "studentId": 5,
+    "courseId": 5,
+    "professorId": 5,
+    "grade": 80
+  }
+]
+
+[
+  {
+    "professorId": 1,
+    "name": "Dr. Clara Evans"
+  },
+  {
+    "professorId": 2,
+    "name": "Dr. George Hill"
+  },
+  {
+    "professorId": 3,
+    "name": "Dr. Hannah Brown"
+  },
+  {
+    "professorId": 4,
+    "name": "Dr. Ian Scott"
+  },
+  {
+    "professorId": 5,
+    "name": "Dr. Julia White"
+  }
+]
+
+[
+  {
+    "studentId": 1,
+    "name": "Alice Johnson",
+    "gradYr": "2025-05-15T00:00:00.000Z",
+    "major": "Computer Science"
+  },
+  {
+    "studentId": 2,
+    "name": "Bob Smith",
+    "gradYr": "2026-05-15T00:00:00.000Z",
+    "major": "Mathematics"
+  },
+  {
+    "studentId": 3,
+    "name": "Daniel Lee",
+    "gradYr": "2024-05-15T00:00:00.000Z",
+    "major": "Biology"
+  },
+  {
+    "studentId": 4,
+    "name": "Emily Davis",
+    "gradYr": "2027-05-15T00:00:00.000Z",
+    "major": "Physics"
+  },
+  {
+    "studentId": 5,
+    "name": "Frank Wright",
+    "gradYr": "2025-05-15T00:00:00.000Z",
+    "major": "Chemistry"
+  }
+]
+
+
+[
+  {
+    "id": "u1",
+    "name": "Alice Johnson",
+    "email": "alice@example.com",
+    "phonenumber": "555-111-2222",
+    "role": "STUDENT"
+  },
+  {
+    "id": "u2",
+    "name": "Bob Smith",
+    "email": "bob@example.com",
+    "phonenumber": "555-222-3333",
+    "role": "STUDENT"
+  },
+  {
+    "id": "u3",
+    "name": "Clara Evans",
+    "email": "clara@example.com",
+    "phonenumber": "555-333-4444",
+    "role": "PROFESSOR"
+  },
+  {
+    "id": "u4",
+    "name": "Daniel Lee",
+    "email": "daniel@example.com",
+    "phonenumber": "555-444-5555",
+    "role": "STUDENT"
+  },
+  {
+    "id": "u5",
+    "name": "Admin User",
+    "email": "admin@example.com",
+    "phonenumber": "555-555-6666",
+    "role": "ADMIN"
+  }
+]

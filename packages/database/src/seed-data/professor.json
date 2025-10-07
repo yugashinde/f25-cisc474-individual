@@ -1,0 +1,22 @@
+[
+  {
+    "professorId": 1,
+    "name": "Dr. Clara Evans"
+  },
+  {
+    "professorId": 2,
+    "name": "Dr. George Hill"
+  },
+  {
+    "professorId": 3,
+    "name": "Dr. Hannah Brown"
+  },
+  {
+    "professorId": 4,
+    "name": "Dr. Ian Scott"
+  },
+  {
+    "professorId": 5,
+    "name": "Dr. Julia White"
+  }
+]
