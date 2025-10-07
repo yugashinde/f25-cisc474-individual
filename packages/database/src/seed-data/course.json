@@ -1,0 +1,28 @@
+
+[
+    {
+      "courseId": 1,
+      "name": "Intro to Programming",
+      "description": "Learn the basics of coding in Python."
+    },
+    {
+      "courseId": 2,
+      "name": "Linear Algebra",
+      "description": "Vector spaces, matrices, and linear transformations."
+    },
+    {
+      "courseId": 3,
+      "name": "Organic Chemistry",
+      "description": "Introduction to carbon-based compounds."
+    },
+    {
+      "courseId": 4,
+      "name": "Cell Biology",
+      "description": "Structure and function of cells."
+    },
+    {
+      "courseId": 5,
+      "name": "Quantum Physics",
+      "description": "Principles of quantum mechanics."
+    }
+  ]

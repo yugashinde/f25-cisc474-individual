@@ -1,0 +1,37 @@
+[
+    {
+      "id": 1,
+      "studentId": 1,
+      "courseId": 1,
+      "professorId": 1,
+      "grade": 90
+    },
+    {
+      "id": 2,
+      "studentId": 2,
+      "courseId": 2,
+      "professorId": 2,
+      "grade": 85
+    },
+    {
+      "id": 3,
+      "studentId": 3,
+      "courseId": 3,
+      "professorId": 3,
+      "grade": 88
+    },
+    {
+      "id": 4,
+      "studentId": 4,
+      "courseId": 4,
+      "professorId": 4,
+      "grade": 92
+    },
+    {
+      "id": 5,
+      "studentId": 5,
+      "courseId": 5,
+      "professorId": 5,
+      "grade": 80
+    }
+  ]

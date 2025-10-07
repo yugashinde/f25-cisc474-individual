@@ -1,0 +1,32 @@
+[
+    {
+      "studentId": 1,
+      "name": "Alice Johnson",
+      "gradYr": "2025-05-15T00:00:00.000Z",
+      "major": "Computer Science"
+    },
+    {
+      "studentId": 2,
+      "name": "Bob Smith",
+      "gradYr": "2026-05-15T00:00:00.000Z",
+      "major": "Mathematics"
+    },
+    {
+      "studentId": 3,
+      "name": "Daniel Lee",
+      "gradYr": "2024-05-15T00:00:00.000Z",
+      "major": "Biology"
+    },
+    {
+      "studentId": 4,
+      "name": "Emily Davis",
+      "gradYr": "2027-05-15T00:00:00.000Z",
+      "major": "Physics"
+    },
+    {
+      "studentId": 5,
+      "name": "Frank Wright",
+      "gradYr": "2025-05-15T00:00:00.000Z",
+      "major": "Chemistry"
+    }
+  ]

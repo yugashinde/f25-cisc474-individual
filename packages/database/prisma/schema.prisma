@@ -1,6 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+// adding table structure schema to this file
+//used chat to help with creating relations between the tables 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
@@ -12,9 +13,58 @@ generator client {
   output   = "../generated/client"
 }
 
+enum ROLE {
+  STUDENT
+  PROFESSOR
+  ADMIN
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  phonenumber   String?
+  role          ROLE @default(STUDENT)
+}
+
+model Student {
+  studentId       Int     @id @default(autoincrement())
+  name     String
+  gradYr   DateTime
+  major    String
+}
+
+model Professor {
+  professorId      Int     @id @default(autoincrement())
+  name    String
+
+ 
+}
+
+model Course {
+  courseId          Int     @id @default(autoincrement())
+  name        String
+  description String?
+
+ 
+}
+
+model Enrollment {
+  id Int @id @default(autoincrement())
+  studentId Int  
+  courseId  Int
+
+ 
+}
+
+
+model Grade {
+  id          Int @id @default(autoincrement())
+  studentId   Int  
+  courseId    Int  
+  professorId Int   
+  grade       Int
+
+  
 }
