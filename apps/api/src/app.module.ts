@@ -6,11 +6,10 @@ import { CourseModule } from './course/course.module';
 import { ProfessorModule } from './professor/professor.module';
 import { UserModule } from './user/user.module';
 import { GradeModule } from './grade/grade.module';
-import { EnrollnmentModule } from './enrollnment/enrollnment.module';
 import { EnrollmentModule } from './enrollment/enrollment.module';
 
 @Module({
-  imports: [LinksModule, CourseModule, ProfessorModule, UserModule, GradeModule, EnrollnmentModule, EnrollmentModule],
+  imports: [LinksModule, CourseModule, ProfessorModule, UserModule, GradeModule, EnrollmentModule, EnrollmentModule],
   controllers: [AppController],
   providers: [AppService],
 })
