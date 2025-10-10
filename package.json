@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@nestjs/mapped-types": "*",
-    "@prisma/client": "latest"
+    "@prisma/client": "^6.17.0"
   },
   "packageManager": "npm@10.9.0",
   "workspaces": [

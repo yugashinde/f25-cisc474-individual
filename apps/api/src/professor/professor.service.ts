@@ -11,9 +11,9 @@ export class ProfessorService {
   }
 
   // Get a single grade
-  async findOne(id: number) {
+  async findOne(professorId: number) {
     return this.prisma.professor.findUnique({
-      where: { id },
+      where: { professorId },
     });
   }
 }

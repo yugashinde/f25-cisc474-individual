@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class UserService {
-    
+
     constructor(private prisma: PrismaService) {}
 
     // Get all grades
@@ -12,7 +12,7 @@ export class UserService {
   }
 
   // Get a single grade
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.prisma.user.findUnique({
       where: { id },
     });
