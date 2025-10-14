@@ -28,11 +28,13 @@ model User {
   role          ROLE @default(STUDENT)
 }
 
-model Student {
-  studentId       Int     @id @default(autoincrement())
+model StudentProfile {
+  id       Int     @id @default(autoincrement())
   name     String
   gradYr   DateTime
   major    String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
 }
 
 model Professor {
