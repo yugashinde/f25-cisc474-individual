@@ -12,12 +12,76 @@ generator client {
   output   = "../generated/client"
 }
 
-
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
-  
+  role          String    @default("Student") // "Student", "Professor" , "Admin"
 
+  coursesTaught    Course[]           @relation("ProfessorCourses")
+  grades           Grade[]
+  studentProfile   studentProfile[]
+  professorProfile professorProfile[]
+}
+
+model studentProfile {
+  userId String @id
+  user   User   @relation(fields: [userId], references: [id])
+
+  college      String
+  startYr      DateTime
+  graduationYr DateTime
+  gpa          Float
+}
+
+model professorProfile {
+  userId String @id
+  user   User   @relation(fields: [userId], references: [id])
+
+  title      String
+  department String
+  joinedYr   DateTime
+  tenured    Boolean
+  office     String
+}
+
+model Course {
+  courseId    String  @id
+  title       String
+  description String?
+  department  String
+  credits     Int
+
+  Assignments Assignment[]
+
+  professorId String
+  professor   User   @relation("ProfessorCourses", fields: [professorId], references: [id])
+}
+
+model Assignment {
+  assignmentId String   @id
+  title        String
+  description  String
+  points       Float
+  status       String
+  dueDate      DateTime
+
+  courseId String
+  course   Course  @relation(fields: [courseId], references: [courseId])
+  Grade    Grade[]
+}
+
+model Grade {
+  id           String   @id @default(cuid())
+  studentId    String
+  assignmentId String
+  score        Float
+  feedback     String?
+  gradedAt     DateTime @default(now())
+
+  student    User       @relation(fields: [studentId], references: [id])
+  Assignment Assignment @relation(fields: [assignmentId], references: [assignmentId])
+
+  @@unique([studentId, assignmentId])
 }
