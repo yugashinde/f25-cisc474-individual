@@ -6,6 +6,6 @@
     "eslint.config.js",
     "prettier.config.js",
     "vite.config.js"
-  ],
+, "src/routes/dashboard/courses/coursesD.tsx" , "src/routes/dashboard/$courseID" ],
   "exclude": ["node_modules"]
 }

@@ -10,33 +10,104 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardHomepageRouteImport } from './routes/dashboard/homepage'
+import { Route as DashboardCourseIDIndexRouteImport } from './routes/dashboard/$courseID/index'
+import { Route as DashboardCourseIDGradeRouteImport } from './routes/dashboard/$courseID/grade'
+import { Route as DashboardCourseIDAssignmentsRouteImport } from './routes/dashboard/$courseID/assignments'
+import { Route as DashboardCourseIDAssignmentIDIndexRouteImport } from './routes/dashboard/$courseID/$assignmentID/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardHomepageRoute = DashboardHomepageRouteImport.update({
+  id: '/dashboard/homepage',
+  path: '/dashboard/homepage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardCourseIDIndexRoute = DashboardCourseIDIndexRouteImport.update({
+  id: '/dashboard/$courseID/',
+  path: '/dashboard/$courseID/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardCourseIDGradeRoute = DashboardCourseIDGradeRouteImport.update({
+  id: '/dashboard/$courseID/grade',
+  path: '/dashboard/$courseID/grade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardCourseIDAssignmentsRoute =
+  DashboardCourseIDAssignmentsRouteImport.update({
+    id: '/dashboard/$courseID/assignments',
+    path: '/dashboard/$courseID/assignments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DashboardCourseIDAssignmentIDIndexRoute =
+  DashboardCourseIDAssignmentIDIndexRouteImport.update({
+    id: '/dashboard/$courseID/$assignmentID/',
+    path: '/dashboard/$courseID/$assignmentID/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard/homepage': typeof DashboardHomepageRoute
+  '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
+  '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
+  '/dashboard/$courseID': typeof DashboardCourseIDIndexRoute
+  '/dashboard/$courseID/$assignmentID': typeof DashboardCourseIDAssignmentIDIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard/homepage': typeof DashboardHomepageRoute
+  '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
+  '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
+  '/dashboard/$courseID': typeof DashboardCourseIDIndexRoute
+  '/dashboard/$courseID/$assignmentID': typeof DashboardCourseIDAssignmentIDIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard/homepage': typeof DashboardHomepageRoute
+  '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
+  '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
+  '/dashboard/$courseID/': typeof DashboardCourseIDIndexRoute
+  '/dashboard/$courseID/$assignmentID/': typeof DashboardCourseIDAssignmentIDIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard/homepage'
+    | '/dashboard/$courseID/assignments'
+    | '/dashboard/$courseID/grade'
+    | '/dashboard/$courseID'
+    | '/dashboard/$courseID/$assignmentID'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dashboard/homepage'
+    | '/dashboard/$courseID/assignments'
+    | '/dashboard/$courseID/grade'
+    | '/dashboard/$courseID'
+    | '/dashboard/$courseID/$assignmentID'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard/homepage'
+    | '/dashboard/$courseID/assignments'
+    | '/dashboard/$courseID/grade'
+    | '/dashboard/$courseID/'
+    | '/dashboard/$courseID/$assignmentID/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardHomepageRoute: typeof DashboardHomepageRoute
+  DashboardCourseIDAssignmentsRoute: typeof DashboardCourseIDAssignmentsRoute
+  DashboardCourseIDGradeRoute: typeof DashboardCourseIDGradeRoute
+  DashboardCourseIDIndexRoute: typeof DashboardCourseIDIndexRoute
+  DashboardCourseIDAssignmentIDIndexRoute: typeof DashboardCourseIDAssignmentIDIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +119,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/homepage': {
+      id: '/dashboard/homepage'
+      path: '/dashboard/homepage'
+      fullPath: '/dashboard/homepage'
+      preLoaderRoute: typeof DashboardHomepageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/$courseID/': {
+      id: '/dashboard/$courseID/'
+      path: '/dashboard/$courseID'
+      fullPath: '/dashboard/$courseID'
+      preLoaderRoute: typeof DashboardCourseIDIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/$courseID/grade': {
+      id: '/dashboard/$courseID/grade'
+      path: '/dashboard/$courseID/grade'
+      fullPath: '/dashboard/$courseID/grade'
+      preLoaderRoute: typeof DashboardCourseIDGradeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/$courseID/assignments': {
+      id: '/dashboard/$courseID/assignments'
+      path: '/dashboard/$courseID/assignments'
+      fullPath: '/dashboard/$courseID/assignments'
+      preLoaderRoute: typeof DashboardCourseIDAssignmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/$courseID/$assignmentID/': {
+      id: '/dashboard/$courseID/$assignmentID/'
+      path: '/dashboard/$courseID/$assignmentID'
+      fullPath: '/dashboard/$courseID/$assignmentID'
+      preLoaderRoute: typeof DashboardCourseIDAssignmentIDIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardHomepageRoute: DashboardHomepageRoute,
+  DashboardCourseIDAssignmentsRoute: DashboardCourseIDAssignmentsRoute,
+  DashboardCourseIDGradeRoute: DashboardCourseIDGradeRoute,
+  DashboardCourseIDIndexRoute: DashboardCourseIDIndexRoute,
+  DashboardCourseIDAssignmentIDIndexRoute:
+    DashboardCourseIDAssignmentIDIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
