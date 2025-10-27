@@ -10,9 +10,10 @@ import { ProfessorProfileModule } from './professor-profile/professor-profile.mo
 import { StudentProfileModule } from './student-profile/student-profile.module';
 import { UserModule } from './user/user.module';
 import { GradeModule } from './grade/grade.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [LinksModule, AssignmentModule, CourseModule, ProfessorProfileModule, StudentProfileModule, UserModule, GradeModule],
+  imports: [LinksModule, AssignmentModule, CourseModule, ProfessorProfileModule, StudentProfileModule, UserModule, GradeModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
