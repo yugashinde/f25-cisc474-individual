@@ -23,8 +23,20 @@ model User {
   grades           Grade[]
   studentProfile   studentProfile[]
   professorProfile professorProfile[]
+  authentications  Authentication[]
 }
+model Authentication {
+  id         String   @id @default(uuid())
+  userId     String
+  provider   String
+  providerId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
+  
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([provider, providerId])
+}
 model studentProfile {
   userId String @id
   user   User   @relation(fields: [userId], references: [id])
