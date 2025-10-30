@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardHomepageRouteImport } from './routes/dashboard/homepage'
 import { Route as DashboardCourseIDIndexRouteImport } from './routes/dashboard/$courseID/index'
@@ -16,6 +17,11 @@ import { Route as DashboardCourseIDGradeRouteImport } from './routes/dashboard/$
 import { Route as DashboardCourseIDAssignmentsRouteImport } from './routes/dashboard/$courseID/assignments'
 import { Route as DashboardCourseIDAssignmentIDIndexRouteImport } from './routes/dashboard/$courseID/$assignmentID/index'
 
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -51,6 +57,7 @@ const DashboardCourseIDAssignmentIDIndexRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
   '/dashboard/homepage': typeof DashboardHomepageRoute
   '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
   '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
   '/dashboard/homepage': typeof DashboardHomepageRoute
   '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
   '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
@@ -68,6 +76,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
   '/dashboard/homepage': typeof DashboardHomepageRoute
   '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
   '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/home'
     | '/dashboard/homepage'
     | '/dashboard/$courseID/assignments'
     | '/dashboard/$courseID/grade'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/home'
     | '/dashboard/homepage'
     | '/dashboard/$courseID/assignments'
     | '/dashboard/$courseID/grade'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/home'
     | '/dashboard/homepage'
     | '/dashboard/$courseID/assignments'
     | '/dashboard/$courseID/grade'
@@ -103,6 +115,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HomeRoute: typeof HomeRoute
   DashboardHomepageRoute: typeof DashboardHomepageRoute
   DashboardCourseIDAssignmentsRoute: typeof DashboardCourseIDAssignmentsRoute
   DashboardCourseIDGradeRoute: typeof DashboardCourseIDGradeRoute
@@ -112,6 +125,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -159,6 +179,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HomeRoute: HomeRoute,
   DashboardHomepageRoute: DashboardHomepageRoute,
   DashboardCourseIDAssignmentsRoute: DashboardCourseIDAssignmentsRoute,
   DashboardCourseIDGradeRoute: DashboardCourseIDGradeRoute,

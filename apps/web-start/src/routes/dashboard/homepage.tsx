@@ -1,32 +1,53 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useApiQuery,useCurrentUser } from '../../integrations/api' // or useQuery directly
+import type { CourseOut } from '@repo/api'
 
 export const Route = createFileRoute('/dashboard/homepage')({
   component: DashboardComponent,
 })
 
 export function DashboardComponent() {
-  const courses = ['MATH243', 'CISC372', 'CICS484', 'CISC474', 'CISC489']
+  // fetching array of courses from backend of a userID 
+  const { data: user } = useCurrentUser();
+  const query = useApiQuery<Array<CourseOut>>(['courses'], '/courses');
+
+  const { data : courses = [], error, showLoading } = useApiQuery<Array<CourseOut>>(['courses'], '/courses');
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (showLoading) return <div>Loading...</div>;
+
+  if (!courses || courses.length === 0) {
+    return <div>No courses found.</div>;
+  }
+
   return (
     <div>
       <h1>Welcome to dashboard!</h1>
-      <h2> Select a course </h2>
+      <h2>Select a course</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {courses.map((course) => (
-          <CourseButton key={course} courseID={course} />
+          <CourseButton key={course.courseID} course={course} />
         ))}
       </div>
     </div>
-  );
+  )
 }
 
+type Props = {
+  course: CourseOut
+}
 
-function CourseButton({ courseID }: { courseID: string }) {
+function CourseButton({ course }: Props) {
   return (
     <div style={{ border: '1px solid #ccc', padding: '3rem', color: 'black', borderRadius: '8px' }}>
-      <h3>{courseID}</h3>
+      <h3>{course.name}</h3>
+      
       <Link
         to="/dashboard/$courseID"
-        params={{ courseID }}
+        params={{ courseID: course.courseID  }}
         style={{
           display: 'inline-block',
           padding: '0.5rem 1rem',
@@ -36,8 +57,9 @@ function CourseButton({ courseID }: { courseID: string }) {
           textDecoration: 'none',
         }}
       >
-        Go to {courseID} Dashboard
+        Go to {course.name} Dashboard
       </Link>
+      
     </div>
   );
 }
