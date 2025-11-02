@@ -13,5 +13,9 @@ export  {
   RoleUpdateIn,
 } from './roles';
 
+export{
+  UserCreateIn,
+  UserUpdateIn,
+  UserOut
+} from './user'
 
-export  { UserOut } from './user';

@@ -4,12 +4,16 @@ import {
   UnauthorizedException,
   UseGuards,
   Param,
+  Post,
+  Body,
+  Patch
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import type { JwtUser } from 'src/auth/jwt.strategy';
 import { AuthGuard } from '@nestjs/passport';
-import { UserOut } from '@repo/api'; 
+import { UserCreateIn, UserUpdateIn, UserOut} from '@repo/api'
+
 
 @Controller('users')
 export class UserController {
@@ -50,7 +54,7 @@ export class UserController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string){
     const user = await this.userService.findOne(id);
     if (!user) {
       throw new UnauthorizedException('User not found');
@@ -70,6 +74,29 @@ export class UserController {
       throw new UnauthorizedException('User not found');
     }
     return UserOut.parse({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  }
+
+  @Post()
+  async create(@Body() data: UserCreateIn) {
+    const user = await this.userService.create(data);
+    return UserCreateIn.parse({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  }
+
+  // ✏️ Update user by ID
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() data: UserUpdateIn) {
+    const user = await this.userService.update(id, data);
+    return UserUpdateIn.parse({
       id: user.id,
       name: user.name,
       email: user.email,
