@@ -57,11 +57,13 @@ async function main() {
       const course = await prisma.course.create({
         data: {
           courseId: faker.string.uuid(),
+          
           title: faker.lorem.words(3),
           description: faker.lorem.sentence(),
           department: faker.commerce.department(),
           credits: faker.number.int({ min: 2, max: 5 }),
           professorId: prof.id,
+          ownerId : prof.id,
         },
       });
       courses.push(course);

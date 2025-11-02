@@ -1,19 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CourseService } from './course.service';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import { Controller, Get, Post, Body, Patch,Query,  Param, Delete, UseGuards } from '@nestjs/common';
 
-@Controller('course')
+import { CourseService } from './course.service';
+import { CourseCreateIn, CourseUpdateIn, CourseOut } from '@repo/api';
+import { JwtAuthGuard } from '../auth/jwt.strategy.guard';
+import { JwtService } from '@nestjs/jwt';
+
+
+@Controller('courses') 
+
 export class CourseController {
-  constructor(private readonly courseService: CourseService) {}
+  constructor(private courseService: CourseService) {}
 
   @Post()
-  create(@Body() createCourseDto: CreateCourseDto) {
+  @UseGuards(JwtAuthGuard) // optional
+  create(@Body() createCourseDto: CourseCreateIn) {
     return this.courseService.create(createCourseDto);
   }
-
   @Get()
-  async findAll() {
+  async findAll(@Query('ownerId') ownerId?: string) {
+    if (ownerId) {
+      return await this.courseService.findByOwner(ownerId);
+    }
     return await this.courseService.findAll();
   }
 
@@ -22,13 +29,18 @@ export class CourseController {
     return await this.courseService.findOne(courseId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.courseService.update(+id, updateCourseDto);
+
+  @Patch(':courseId')
+  update(
+    @Param('courseId') courseId: string,
+    @Body() updateCourseDto: CourseUpdateIn,
+  ) {
+    return this.courseService.update(courseId, updateCourseDto);
   }
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.courseService.remove(+id);
+    return this.courseService.remove(id);
   }
 }

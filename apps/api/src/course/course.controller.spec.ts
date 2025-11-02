@@ -4,6 +4,7 @@ import { CourseService } from './course.service';
 
 describe('CourseController', () => {
   let controller: CourseController;
+  let service : CourseService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

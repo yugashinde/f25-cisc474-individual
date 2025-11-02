@@ -20,6 +20,9 @@ export class UserService {
       where: { id },
     });
   }
+  findByEmail(email: string) {
+    return this.prisma.user.findFirst({ where: { email } });
+  }
   
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;

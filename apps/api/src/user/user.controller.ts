@@ -1,34 +1,79 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UnauthorizedException,
+  UseGuards,
+  Param,
+} from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CurrentUser } from 'src/auth/current-user.decorator';
+import type { JwtUser } from 'src/auth/jwt.strategy';
+import { AuthGuard } from '@nestjs/passport';
+import { UserOut } from '@repo/api'; 
 
-@Controller('user')
+@Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private userService: UserService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @UseGuards(AuthGuard('jwt'))
+  @Get('me')
+  async me(@CurrentUser() auth: JwtUser) {
+    console.log(auth);
+    if (!auth || !auth.userId) {
+
+      throw new UnauthorizedException();
+    }
+    const user = await this.userService.findOne(auth.userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    // Return only what your client needs (include the DB id!)
+    return UserOut.parse({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
   }
 
   @Get()
   async findAll() {
-    return this.userService.findAll();
+    const users = await this.userService.findAll();
+    return users.map((user) =>
+      UserOut.parse({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      }),
+    );
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    const user = await this.userService.findOne(id);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+    return UserOut.parse({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Get('by-email/:email')
+  async findByEmail(@Param('email') email: string) {
+    const user = await this.userService.findByEmail(email);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+    return UserOut.parse({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
   }
 }

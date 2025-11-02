@@ -1,53 +1,62 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { useApiQuery,useCurrentUser } from '../../integrations/api' // or useQuery directly
-import type { CourseOut } from '@repo/api'
+import type { CourseOut } from '@repo/api';
 
 export const Route = createFileRoute('/dashboard/homepage')({
   component: DashboardComponent,
 })
 
 export function DashboardComponent() {
-  // fetching array of courses from backend of a userID 
-  const { data: user } = useCurrentUser();
-  const query = useApiQuery<Array<CourseOut>>(['courses'], '/courses');
 
-  const { data : courses = [], error, showLoading } = useApiQuery<Array<CourseOut>>(['courses'], '/courses');
+  const { data: user, showLoading: userLoading } = useCurrentUser();
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const {
+    data: courses,
+    error,
+    showLoading: coursesLoading,
+    refetch,
+  } = useApiQuery<Array<CourseOut>>(
+    ['courses', user?.id],
+    `/courses?ownerId=${user?.ownerid ?? ''}`,
+  );
+  
+  const isLoading = userLoading || coursesLoading;
 
-  if (showLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error.message}</div>;
 
   if (!courses || courses.length === 0) {
     return <div>No courses found.</div>;
   }
-
+  
   return (
     <div>
       <h1>Welcome to dashboard!</h1>
+      <h1>Welcome, {user?.username}</h1>
       <h2>Select a course</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {courses.map((course) => (
-          <CourseButton key={course.courseID} course={course} />
+        {courses.map((course : CourseOut) => (
+          <CourseButton key={course.courseId} course={course} />
         ))}
       </div>
+
+      <button onClick={() => refetch()}>Refetch Courses</button>
+    
     </div>
   )
 }
 
-type Props = {
-  course: CourseOut
-}
+type Props = { course: CourseOut };
 
 function CourseButton({ course }: Props) {
   return (
     <div style={{ border: '1px solid #ccc', padding: '3rem', color: 'black', borderRadius: '8px' }}>
-      <h3>{course.name}</h3>
+      <h3>{course.title}</h3>
       
       <Link
         to="/dashboard/$courseID"
-        params={{ courseID: course.courseID  }}
+        params={{ courseID: course.courseId }}
         style={{
           display: 'inline-block',
           padding: '0.5rem 1rem',
@@ -57,7 +66,7 @@ function CourseButton({ course }: Props) {
           textDecoration: 'none',
         }}
       >
-        Go to {course.name} Dashboard
+        Go to {course.title} Dashboard
       </Link>
       
     </div>
