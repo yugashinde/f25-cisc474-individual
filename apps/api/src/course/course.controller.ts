@@ -1,13 +1,12 @@
 import { Controller, Get, Post, Body, Patch,Query,  Param, Delete, UseGuards } from '@nestjs/common';
 
 import { CourseService } from './course.service';
-import { CourseCreateIn, CourseUpdateIn, CourseOut } from '@repo/api';
+import { CourseCreateIn, CourseUpdateIn } from '@repo/api';
 import { JwtAuthGuard } from '../auth/jwt.strategy.guard';
 import { JwtService } from '@nestjs/jwt';
 
 
 @Controller('courses') 
-
 export class CourseController {
   constructor(private courseService: CourseService) {}
 
@@ -31,7 +30,7 @@ export class CourseController {
 
 
   @Patch(':courseId')
-  update(
+  async update(
     @Param('courseId') courseId: string,
     @Body() updateCourseDto: CourseUpdateIn,
   ) {
@@ -39,8 +38,8 @@ export class CourseController {
   }
 
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.courseService.remove(id);
+  @Delete(':courseId')
+  async remove(@Param('icourseId') courseId: string) {
+    return this.courseService.remove(courseId);
   }
 }

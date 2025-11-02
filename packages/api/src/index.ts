@@ -3,6 +3,7 @@ export  {
   CourseOut,
   CourseUpdateIn,
   CourseListIn,
+  findCoursesByOwnerIn,
 } from './course';
 
 export  {

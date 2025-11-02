@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { CourseCreateIn, CourseUpdateIn, CourseOut } from '@repo/api';
-import { CurrentUser } from 'src/auth/current-user.decorator';
+import { CourseCreateIn, CourseUpdateIn, CourseOut ,findCoursesByOwnerIn} from '@repo/api';
+
+
 
 @Injectable()
 export class CourseService {
@@ -11,25 +12,22 @@ export class CourseService {
   async create(createCourseDto: CourseCreateIn) {
     const course = await this.prisma.course.create({
       data: {
-        courseId: createCourseDto.ownerId,
         title: createCourseDto.name,
         description: createCourseDto.description,
         department: createCourseDto.department ?? '',
         credits: createCourseDto.credits ?? 0,
         owner: { connect: { id: createCourseDto.ownerId } },
-        
       professor: { connect: { id: createCourseDto.ownerId } }, 
       },
     });
     return {
-      courseId: course.courseId,
-      title: course.title,
+      name: course.title,
       description: course.description,
       department: course.department,
       credits: course.credits,
       ownerId: course.ownerId,
       professorId: course.professorId,
-    } satisfies CourseOut;
+    } satisfies CourseCreateIn;
   }
   // FIND ALL courses
   findAll() {
@@ -42,15 +40,12 @@ export class CourseService {
       where: { courseId },
     });
     if (!course) throw new NotFoundException('Course not found');
-
     return {
       courseId: course.courseId,
       title: course.title,
       description: course.description,
       department: course.department,
-      credits: course.credits,
-      ownerId: course.ownerId,
-      professorId: course.professorId,
+  
     } satisfies CourseOut;
   }
 
@@ -65,10 +60,8 @@ export class CourseService {
       title: course.title,
       description: course.description,
       department: course.department,
-      credits: course.credits,
       ownerId: course.ownerId,
-      professorId: course.professorId,
-    } satisfies CourseOut));
+    } satisfies findCoursesByOwnerIn));
   }
 
   // UPDATE a course
@@ -84,14 +77,12 @@ export class CourseService {
     });
 
     return {
-      courseId: course.courseId,
-      title: course.title,
+      //shouldnt be able to update hte course id 
+      name: course.title,
       description: course.description,
       department: course.department,
       credits: course.credits,
-      ownerId: course.ownerId,
-      professorId: course.professorId,
-    } satisfies CourseOut;
+    } satisfies CourseUpdateIn;
   }
 
   async remove(courseId: string) {

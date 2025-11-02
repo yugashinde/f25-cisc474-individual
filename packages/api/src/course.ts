@@ -7,8 +7,6 @@ export const CourseOut = z.object({
   title: z.string(),
   description: z.string().optional(),
   department: z.string(),
-  
-  
 });
 export type CourseOut = z.infer<typeof CourseOut>;
 
@@ -22,12 +20,22 @@ export const CourseCreateIn = z.object({
   });
 export type CourseCreateIn = z.infer<typeof CourseCreateIn>;
 
-export const CourseUpdateIn = z.object({
-    courseID: z.string(),
+export const findCoursesByOwnerIn = z.object({
+    ownerId: z.string(),
+    courseId: z.string(),
+    title: z.string(),
+  description: z.string().optional(),
+  department: z.string(),
+  });
+  export type findCoursesByOwnerIn = z.infer<typeof findCoursesByOwnerIn>;
+
+  export const CourseUpdateIn = z.object({
+    
     name: z.string().min(1).max(100).optional(),
     description: z.string().max(500).optional(),
     department: z.string().max(100).optional(),
     credits: z.number().min(0).max(4).optional(),
+    // professorId: z.string().optional(), for now
   });
 export type CourseUpdateIn = z.infer<typeof CourseUpdateIn>;
 
