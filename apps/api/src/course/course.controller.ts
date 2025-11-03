@@ -3,9 +3,9 @@ import { Controller, Get, Post, Body, Patch,Query,  Param, Delete, UseGuards } f
 import { CourseService } from './course.service';
 import { CourseCreateIn, CourseUpdateIn } from '@repo/api';
 import { JwtAuthGuard } from '../auth/jwt.strategy.guard';
-import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from '@nestjs/passport';
 
-
+@UseGuards(AuthGuard('jwt'))
 @Controller('courses') 
 export class CourseController {
   constructor(private courseService: CourseService) {}

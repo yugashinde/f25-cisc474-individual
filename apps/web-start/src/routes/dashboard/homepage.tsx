@@ -10,15 +10,11 @@ export function DashboardComponent() {
 
   const { data: user, showLoading: userLoading } = useCurrentUser();
 
-  const {
-    data: courses,
-    error,
-    showLoading: coursesLoading,
-    refetch,
-  } = useApiQuery<Array<CourseOut>>(
-    ['courses', user?.id],
-    `/courses?ownerId=${user?.ownerid ?? ''}`,
-  );
+  const ownerId = user?.id ?? '';
+const { data: courses, error, showLoading: coursesLoading, refetch } = useApiQuery<Array<CourseOut>>(
+  ['courses', ownerId],
+  `/courses?ownerId=${ownerId}`,
+);
   
   const isLoading = userLoading || coursesLoading;
 
