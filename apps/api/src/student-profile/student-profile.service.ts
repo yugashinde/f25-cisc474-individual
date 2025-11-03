@@ -14,11 +14,11 @@ export class StudentProfileService {
     return this.prisma.studentProfile.findMany();
   }
 
-  findOne(userId: string) {
+/*findOne(userId: string) {
     return this.prisma.studentProfile.findUnique(
       { where: { userId }, }
     )
-  }
+  }*/
 
   update(id: number, updateStudentProfileDto: UpdateStudentProfileDto) {
     return `This action updates a #${id} studentProfile`;

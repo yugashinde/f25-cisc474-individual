@@ -17,11 +17,11 @@ export class GradeController {
     return this.gradeService.findAll();
   }
 
-  @Get(':id')
+  /*@Get(':id')
   findOne(@Param('id') id: string) {
     return this.gradeService.findOne(id);
   }
-
+*/
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGradeDto: UpdateGradeDto) {
     return this.gradeService.update(+id, updateGradeDto);

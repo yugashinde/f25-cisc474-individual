@@ -17,11 +17,11 @@ export class ProfessorProfileController {
     return await this.professorProfileService.findAll();
   }
 
-  @Get(':userId')
+  /*@Get(':userId')
   async findOne(@Param('userId') userId: string) {
     return await this.professorProfileService.findOne(userId);
   }
-
+*/
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProfessorProfileDto: UpdateProfessorProfileDto) {
     return this.professorProfileService.update(+id, updateProfessorProfileDto);

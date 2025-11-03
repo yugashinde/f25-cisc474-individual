@@ -17,10 +17,10 @@ export class AssignmentController {
     return await this.assignmentService.findAll();
   }
 
-  @Get(':assignmentId')
+  /*@Get(':assignmentId')
   async findOne(@Param('assignmentId') assignmentId: string) {
     return await this.assignmentService.findOne(assignmentId);
-  }
+  }*/
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAssignmentDto: UpdateAssignmentDto) {

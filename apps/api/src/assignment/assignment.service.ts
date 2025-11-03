@@ -14,12 +14,12 @@ export class AssignmentService {
     return this.prisma.assignment.findMany();
   }
 
-  findOne(assignmentId: string) {
+  /*findOne(assignmentId: string) {
     return this.prisma.assignment.findUnique({
       where : {assignmentId},
     })
   }
-
+*/
   update(id: number, updateAssignmentDto: UpdateAssignmentDto) {
     return `This action updates a #${id} assignment`;
   }

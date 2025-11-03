@@ -16,11 +16,11 @@ export class GradeService {
     return this.prisma.grade.findMany();
   }
 
-  findOne(id: string) {
+  /*findOne(id: string) {
     return this.prisma.grade.findUnique({
       where: {id},
     })
-  }
+  }*/
 
   update(id: number, updateGradeDto: UpdateGradeDto) {
     return `This action updates a #${id} grade`;

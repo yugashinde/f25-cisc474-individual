@@ -8,6 +8,7 @@ import type { UserOut as UserOutType } from '@repo/api';
 const BASE_URL = import.meta.env.VITE_BACKEND_URL as string;
 const AUDIENCE = import.meta.env.VITE_AUTH0_AUDIENCE as string;
 
+
 type Json = Record<string, unknown> | Array<unknown>;
 
 class RedirectingForAuthError extends Error {

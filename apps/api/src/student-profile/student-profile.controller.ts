@@ -17,10 +17,10 @@ export class StudentProfileController {
     return await this.studentProfileService.findAll();
   }
 
-  @Get(':userId')
+  /*@Get(':userId')
   async findOne(@Param('userId') userId: string) {
     return await this.studentProfileService.findOne(userId);
-  }
+  }*/
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStudentProfileDto: UpdateStudentProfileDto) {

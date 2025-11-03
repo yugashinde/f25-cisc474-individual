@@ -13,10 +13,10 @@ export class ProfessorProfileService {
     return this.prisma.professorProfile.findMany();
   }
 
-  findOne(userId: string) {
+  /*findOne(userId: string) {
     return this.prisma.professorProfile.findUnique({
       where:{userId},});
-  }
+  }*/
 
   update(id: number, updateProfessorProfileDto: UpdateProfessorProfileDto) {
     return `This action updates a #${id} professorProfile`;
