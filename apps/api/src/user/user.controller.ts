@@ -11,7 +11,7 @@ import { CurrentUser } from 'src/auth/current-user.decorator';
 import type { JwtUser } from 'src/auth/jwt.strategy';
 import type { UserOut } from '@repo/api/user';
 
-@Controller('users')
+@Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 

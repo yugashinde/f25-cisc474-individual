@@ -29,7 +29,7 @@ const { data: courses, error, showLoading: coursesLoading, refetch } = useApiQue
   return (
     <div>
       <h1>Welcome to dashboard!</h1>
-      <h1>Welcome, {user?.username}</h1>
+      <h1>Welcome, {user?.name}</h1>
       <h2>Select a course</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {courses.map((course : CourseOut) => (

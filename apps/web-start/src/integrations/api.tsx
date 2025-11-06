@@ -1,13 +1,8 @@
-import { ZodSchema, ZodType } from 'zod';
-import type { ZodTypeAny } from 'zod';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { UserOut } from '@repo/api';
-import type { UserOut as UserOutType } from '@repo/api';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL as string;
 const AUDIENCE = import.meta.env.VITE_AUTH0_AUDIENCE as string;
-
 
 type Json = Record<string, unknown> | Array<unknown>;
 
@@ -70,16 +65,12 @@ export function useApiQuery<T>(
   queryKey: ReadonlyArray<unknown>,
   path: string,
   init: RequestInit & { scope?: string } = {},
-  schema?: ZodTypeAny
 ) {
   const { request, isAuthenticated, isAuthLoading } = useApiClient();
   const isEnabled = isAuthenticated && !isAuthLoading;
   const q = useQuery({
     queryKey,
-    queryFn: async () => {
-        const response = await request<T>(path, init)
-        return schema ? schema.parse(response) : response
-      },
+    queryFn: () => request<T>(path, init),
     enabled: isEnabled,
     retry(failureCount, error) {
       if (error instanceof RedirectingForAuthError) return false;
@@ -149,9 +140,12 @@ export type CurrentUser = {
 };
 
 export function useCurrentUser(opts?: { scope?: string }) {
-  return useApiQuery<UserOutType>(
-    ['users', 'me'],
-    '/users/me',
-    { scope: opts?.scope },
-  );
+  return useApiQuery<CurrentUser>(['user', 'me'], '/user/me', {
+    // pass through an optional scope if your API requires it
+    scope: opts?.scope,
+    // You can uncomment any of these if you want the same perf tweaks everywhere:
+    // staleTime: 60_000,
+    // refetchOnWindowFocus: false,
+    // placeholderData: (prev) => prev,
+  });
 }
