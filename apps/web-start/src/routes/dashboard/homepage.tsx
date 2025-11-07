@@ -7,7 +7,6 @@ export const Route = createFileRoute('/dashboard/homepage')({
 })
 
 export function DashboardComponent() {
-
   const { data: user, showLoading: userLoading, isAuthPending } = useCurrentUser();
   console.log("User from useCurrentUser:", user, "Auth pending:", isAuthPending);
 
@@ -22,7 +21,7 @@ export function DashboardComponent() {
   if (!courses || courses.length === 0) {
     return <div>No courses found.</div>;
   }
-  
+
   return (
     <div>
       <h1>Welcome to dashboard!</h1>
@@ -33,9 +32,8 @@ export function DashboardComponent() {
           <CourseButton key={course.courseId} course={course} />
         ))}
       </div>
-
       <button onClick={() => refetch()}>Refetch Courses</button>
-    
+      <Link to="/dashboard/create">Edit</Link>
     </div>
   )
 }
@@ -46,7 +44,6 @@ function CourseButton({ course }: Props) {
   return (
     <div style={{ border: '1px solid #ccc', padding: '3rem', color: 'black', borderRadius: '8px' }}>
       <h3>{course.title}</h3>
-      
       <Link
         to="/dashboard/$courseID"
         params={{ courseID: course.courseId }}
@@ -61,7 +58,6 @@ function CourseButton({ course }: Props) {
       >
         Go to {course.title} Dashboard
       </Link>
-      
     </div>
   );
 }

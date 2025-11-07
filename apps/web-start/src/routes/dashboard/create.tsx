@@ -1,30 +1,28 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
-import { backendFetcher, mutateBackend } from '../../integrations/fetcher';
+import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
+import { useApiMutation, useCurrentUser } from '../../integrations/api' // or useQuery directly
 import type { CourseCreateIn, CourseOut } from '@repo/api';
-
+import { useQueryClient } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/dashboard/create')({
-  component: RouteComponent,
-});
+  component: createComponent,
+})
 
-function RouteComponent() {
+function createComponent() {
+  const { data: currentUser } = useCurrentUser();
   const [newName, setNewName] = useState('');
   const [newDescription, setNewDescription] = useState('');
-  const [newOwnerId, setNewOwnerId] = useState(
-    '7db121b9-90e4-458f-9baa-c14a41ad4e03',
-  );
+  const [newCredits, setNewCredits] = useState(0);
+
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: (newCourse: CourseCreateIn) => {
-      return mutateBackend<CourseOut>('/course', 'POST', newCourse);
-    },
-    onSuccess: (data: CourseOut) => {
-      queryClient.setQueryData(['courses', data.courseID], data);
-    },
+  const mutation = useApiMutation<CourseCreateIn, CourseOut>({
+    endpoint: (variables) => ({
+      path: '/courses',
+      method: 'POST',
+    }),
+    invalidateKeys: [['courses']],
   });
 
   return (
@@ -40,7 +38,7 @@ function RouteComponent() {
             <div>Error creating course: {mutation.error.message}</div>
           ) : null}
           {mutation.isSuccess ? (
-            <div>Course created successfully! ID: {mutation.data.courseID}</div>
+            <div>Course created successfully! ID: {mutation.data.courseId}</div>
           ) : null}
           <hr></hr>
           <div>
@@ -52,6 +50,10 @@ function RouteComponent() {
             />
           </div>
           <div>
+            <input type="number" placeholder="Credits" value = {newCredits} onChange={(e)=>setNewCredits(Number)} />
+          </div>
+          
+          <div>
             <input
               type="text"
               placeholder="Course Description"
@@ -59,22 +61,16 @@ function RouteComponent() {
               onChange={(e) => setNewDescription(e.target.value)}
             />
           </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Owner ID"
-              value={newOwnerId}
-              onChange={(e) => setNewOwnerId(e.target.value)}
-            />
-          </div>
           <div></div>
           <div>
             <button
               onClick={() => {
                 mutation.mutate({
+                  professorId : currentUser?.id || '',
+                  credits: newCredits,
                   name: newName,
                   description: newDescription,
-                  ownerId: newOwnerId,
+                  ownerId: currentUser?.id || '',
                 });
               }}
             >
@@ -83,7 +79,7 @@ function RouteComponent() {
           </div>
           <hr></hr>
           <div>
-            <a href="/courses">Back to Courses</a>
+            <a href="/dashboard/homepage">Back to Courses</a>
           </div>
         </>
       )}

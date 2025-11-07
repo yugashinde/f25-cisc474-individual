@@ -55,7 +55,7 @@ model professorProfile {
 }
 
 model Course {
-  courseId    String       @id @default(cuid())
+  courseId    String       @id @unique @default(cuid())
   title       String
   description String?
   department  String

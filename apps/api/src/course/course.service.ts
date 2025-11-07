@@ -78,12 +78,12 @@ export class CourseService {
     });
 
     return {
-      //shouldnt be able to update hte course id 
-      name: course.title,
+      courseId: course.courseId,
+      title: course.title,
       description: course.description,
       department: course.department,
       credits: course.credits,
-    } satisfies CourseUpdateIn;
+    } satisfies CourseOut;
   }
 
   async remove(courseId: string) {
