@@ -5,5 +5,6 @@ import { PrismaClient } from '@repo/database';
 export class PrismaService extends PrismaClient implements OnModuleInit {
   async onModuleInit() {
     await this.$connect();
+   
   }
 }

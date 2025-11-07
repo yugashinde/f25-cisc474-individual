@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { useApiQuery,useCurrentUser } from '../../integrations/api' // or useQuery directly
+import { useApiQuery,useCurrentUser,useCourses } from '../../integrations/api' // or useQuery directly
 import type { CourseOut } from '@repo/api';
 
 export const Route = createFileRoute('/dashboard/homepage')({
@@ -8,17 +8,14 @@ export const Route = createFileRoute('/dashboard/homepage')({
 
 export function DashboardComponent() {
 
-  const { data: user, showLoading: userLoading } = useCurrentUser();
+  const { data: user, showLoading: userLoading, isAuthPending } = useCurrentUser();
+  console.log("User from useCurrentUser:", user, "Auth pending:", isAuthPending);
 
-  const ownerId = user?.id ?? '';
-const { data: courses, error, showLoading: coursesLoading, refetch } = useApiQuery<Array<CourseOut>>(
-  ['courses', ownerId],
-  `/courses?ownerId=${ownerId}`,
-);
+const { data: courses, error, showLoading: coursesLoading, refetch } = useCourses(user?.id);
   
-  const isLoading = userLoading || coursesLoading;
+  const isL = userLoading || coursesLoading;
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isL) return <div>Loading...</div>;
 
   if (error) return <div>Error: {error.message}</div>;
 

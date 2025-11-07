@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type {CourseOut} from "@repo/api";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL as string;
 const AUDIENCE = import.meta.env.VITE_AUTH0_AUDIENCE as string;
@@ -148,4 +149,10 @@ export function useCurrentUser(opts?: { scope?: string }) {
     // refetchOnWindowFocus: false,
     // placeholderData: (prev) => prev,
   });
+}
+
+export function useCourses(ownerId?: string) {
+  const isEnabled = !!ownerId;
+  return useApiQuery<Array<CourseOut>>(['courses', ownerId],
+     `/courses?ownerId=${ownerId}`, {enabled:isEnabled,}as any);
 }

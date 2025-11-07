@@ -11,10 +11,12 @@ export class CourseController {
   constructor(private courseService: CourseService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard) // optional
+  @UseGuards(JwtAuthGuard)
   create(@Body() createCourseDto: CourseCreateIn) {
     return this.courseService.create(createCourseDto);
   }
+
+  
   @Get()
   async findAll(@Query('ownerId') ownerId?: string) {
     if (ownerId) {
@@ -36,7 +38,7 @@ export class CourseController {
   ) {
     return this.courseService.update(courseId, updateCourseDto);
   }
-
+ 
 
   @Delete(':courseId')
   async remove(@Param('icourseId') courseId: string) {

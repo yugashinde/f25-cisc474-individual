@@ -19,3 +19,8 @@ export{
   UserOut
 } from './user'
 
+export{
+  AuthenticationCreateIn,
+  AuthenticationOut,
+  AuthenticationUpdateIn
+}from './authentication'

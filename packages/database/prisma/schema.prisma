@@ -1,5 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
 
 datasource db {
   provider  = "postgresql"
@@ -7,25 +9,20 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/client"
-}
-
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  role          String    @default("Student") // "Student", "Professor" , "Admin"
-
-  coursesTaught    Course[]           @relation("ProfessorCourses")
-  grades           Grade[]
-  studentProfile   studentProfile[]
-  professorProfile professorProfile[]
+  id               String            @id @default(cuid())
+  name             String?
+  email            String?           @unique
+  emailVerified    DateTime?
+  role             String            @default("Student")
   authentications  Authentication[]
-  owned_courses     Course[]
+  owned_courses    Course[]          @relation("OwnedCourses")
+  coursesTaught    Course[]          @relation("ProfessorCourses")
+  grades           Grade[]
+  professorProfile professorProfile?
+  studentProfile   studentProfile?
 }
+
 model Authentication {
   id         String   @id @default(uuid())
   userId     String
@@ -33,43 +30,41 @@ model Authentication {
   providerId String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([provider, providerId])
 }
-model studentProfile {
-  userId String @id
-  user   User   @relation(fields: [userId], references: [id])
 
+model studentProfile {
+  userId       String   @id
   college      String
   startYr      DateTime
   graduationYr DateTime
   gpa          Float
+  user         User     @relation(fields: [userId], references: [id])
 }
 
 model professorProfile {
-  userId String @id
-  user   User   @relation(fields: [userId], references: [id])
-
+  userId     String   @id
   title      String
   department String
   joinedYr   DateTime
   tenured    Boolean
   office     String
+  user       User     @relation(fields: [userId], references: [id])
 }
 
 model Course {
-  courseId    String  @id @default(cuid())
+  courseId    String       @id @default(cuid())
   title       String
   description String?
   department  String
   credits     Int
   ownerId     String
-  owner       User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  Assignments Assignment[]
-
   professorId String
-  professor   User   @relation("ProfessorCourses", fields: [professorId], references: [id])
+  Assignments Assignment[]
+  owner       User         @relation("OwnedCourses", fields: [ownerId], references: [id], onDelete: Cascade)
+  professor   User         @relation("ProfessorCourses", fields: [professorId], references: [id])
 }
 
 model Assignment {
@@ -79,22 +74,20 @@ model Assignment {
   points       Float
   status       String
   dueDate      DateTime
-
-  courseId String
-  course   Course  @relation(fields: [courseId], references: [courseId])
-  Grade    Grade[]
+  courseId     String
+  course       Course   @relation(fields: [courseId], references: [courseId])
+  Grade        Grade[]
 }
 
 model Grade {
-  id           String   @id @default(cuid())
+  id           String     @id @default(cuid())
   studentId    String
   assignmentId String
   score        Float
   feedback     String?
-  gradedAt     DateTime @default(now())
-
-  student    User       @relation(fields: [studentId], references: [id])
-  Assignment Assignment @relation(fields: [assignmentId], references: [assignmentId])
+  gradedAt     DateTime   @default(now())
+  Assignment   Assignment @relation(fields: [assignmentId], references: [assignmentId])
+  student      User       @relation(fields: [studentId], references: [id])
 
   @@unique([studentId, assignmentId])
 }
