@@ -159,7 +159,7 @@ export function useCourses(ownerId?: string) {
 }
 
 //mutation : create 
-export function createCourses(){
+export function useCreateCourse(){
   return useApiMutation<CourseCreateIn, CourseOut>({
     path: '/courses',
     method: 'POST',
@@ -168,7 +168,7 @@ export function createCourses(){
 }
 
 //mutation : update
-export function updateCourse(){
+export function useUpdateCourse(){
   return useApiMutation<CourseUpdateIn & { courseId: string }, CourseOut>({
     endpoint:(newcourse)=>({
       path:'/courses/'+newcourse.courseId,
@@ -179,7 +179,7 @@ export function updateCourse(){
 }
 
 //mutation : delete
-export function deleteCourse(){
+export function useDeleteCourse(){
   return useApiMutation<{ courseId: string }, void>({
     endpoint:(removerCourse)=>({
       path:'/courses/'+removerCourse.courseId,
