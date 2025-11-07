@@ -41,7 +41,7 @@ export class CourseController {
  
 
   @Delete(':courseId')
-  async remove(@Param('icourseId') courseId: string) {
+  async remove(@Param('courseId') courseId: string) {
     return this.courseService.remove(courseId);
   }
 }

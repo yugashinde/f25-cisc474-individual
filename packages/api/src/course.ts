@@ -5,8 +5,11 @@ import { Pagination } from './queries';
 export const CourseOut = z.object({
   courseId: z.string(),
   title: z.string(),
-  description: z.string().optional(),
+  description: z.string().nullable().optional(),
   department: z.string(),
+  credits: z.number().optional(),
+  ownerId: z.string().optional(),
+  professorId: z.string().optional(),
 });
 export type CourseOut = z.infer<typeof CourseOut>;
 

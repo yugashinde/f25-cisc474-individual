@@ -21,13 +21,14 @@ export class CourseService {
       },
     });
     return {
-      name: course.title,
+      courseId : course.courseId,
+      title: course.title,
       description: course.description,
       department: course.department,
       credits: course.credits,
       ownerId: course.ownerId,
       professorId: course.professorId,
-    } satisfies CourseCreateIn;
+    } satisfies CourseOut;
   }
   // FIND ALL courses
   findAll() {

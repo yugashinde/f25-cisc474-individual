@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import type {CourseOut} from "@repo/api";
+import {CourseOut,CourseUpdateIn,CourseCreateIn} from "@repo/api";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL as string;
 const AUDIENCE = import.meta.env.VITE_AUTH0_AUDIENCE as string;
@@ -140,6 +140,7 @@ export type CurrentUser = {
   email?: string | null;
 };
 
+//query : get current user
 export function useCurrentUser(opts?: { scope?: string }) {
   return useApiQuery<CurrentUser>(['user', 'me'], '/user/me', {
     // pass through an optional scope if your API requires it
@@ -150,9 +151,40 @@ export function useCurrentUser(opts?: { scope?: string }) {
     // placeholderData: (prev) => prev,
   });
 }
-
+//query : get courses by ownerId
 export function useCourses(ownerId?: string) {
   const isEnabled = !!ownerId;
   return useApiQuery<Array<CourseOut>>(['courses', ownerId],
      `/courses?ownerId=${ownerId}`, {enabled:isEnabled,}as any);
+}
+
+//mutation : create 
+export function createCourses(){
+  return useApiMutation<CourseCreateIn, CourseOut>({
+    path: '/courses',
+    method: 'POST',
+    invalidateKeys: [['courses']],
+  });
+}
+
+//mutation : update
+export function updateCourse(){
+  return useApiMutation<CourseUpdateIn & { courseId: string }, CourseOut>({
+    endpoint:(newcourse)=>({
+      path:'/courses/'+newcourse.courseId,
+      method :'PATCH',
+    }),
+    invalidateKeys: [['courses']],
+  });
+}
+
+//mutation : delete
+export function deleteCourse(){
+  return useApiMutation<{ courseId: string }, void>({
+    endpoint:(removerCourse)=>({
+      path:'/courses/'+removerCourse.courseId,
+      method :'DELETE',
+    }),
+    invalidateKeys: [['courses']],
+  });
 }
