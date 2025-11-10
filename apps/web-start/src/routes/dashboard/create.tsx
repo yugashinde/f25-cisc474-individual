@@ -50,7 +50,7 @@ function createComponent() {
             />
           </div>
           <div>
-            <input type="number" placeholder="Credits" value = {newCredits} onChange={(e)=>setNewCredits(Number)} />
+            <input type="number" placeholder="Credits" value = {newCredits} onChange={(e)=>setNewCredits(Number(e.target.value))} />
           </div>
           
           <div>

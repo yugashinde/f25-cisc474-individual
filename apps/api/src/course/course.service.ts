@@ -30,6 +30,7 @@ export class CourseService {
       professorId: course.professorId,
     } satisfies CourseOut;
   }
+
   // FIND ALL courses
   findAll() {
     return this.prisma.course.findMany();

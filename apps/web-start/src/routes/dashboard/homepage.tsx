@@ -10,7 +10,7 @@ export function DashboardComponent() {
   const { data: user, showLoading: userLoading, isAuthPending } = useCurrentUser();
   console.log("User from useCurrentUser:", user, "Auth pending:", isAuthPending);
 
-  const { data: courses, error, showLoading: coursesLoading, refetch } = useCourses(user?.id);
+  const { data: courses, error, isLoading: coursesLoading, refetch } = useCourses(user?.id);
   const createCourse = useCreateCourse();
   const updateCourse = useUpdateCourse();
   const deleteCourse = useDeleteCourse();
@@ -33,7 +33,8 @@ export function DashboardComponent() {
         ))}
       </div>
       <button onClick={() => refetch()}>Refetch Courses</button>
-      <Link to="/dashboard/create">Edit</Link>
+
+      <li> <Link to="/dashboard/create">Edit</Link></li>
     </div>
   )
 }

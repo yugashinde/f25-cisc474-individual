@@ -35,7 +35,8 @@
     "@auth0/auth0-react": "^2.8.0",
     "@nestjs/mapped-types": "*",
     "@prisma/client": "latest",
-    "@repo/api": "*"
+    "@repo/api": "*",
+    "dotenv": "^17.2.3"
   },
   "packageManager": "npm@10.9.0",
   "workspaces": [

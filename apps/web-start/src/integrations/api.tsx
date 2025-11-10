@@ -153,9 +153,14 @@ export function useCurrentUser(opts?: { scope?: string }) {
 }
 //query : get courses by ownerId
 export function useCourses(ownerId?: string) {
-  const isEnabled = !!ownerId;
-  return useApiQuery<Array<CourseOut>>(['courses', ownerId],
-     `/courses?ownerId=${ownerId}`, {enabled:isEnabled,}as any);
+  const { request, isAuthenticated, isAuthLoading } = useApiClient();
+  const isEnabled = !!ownerId && isAuthenticated && !isAuthLoading;
+
+  return useQuery({
+    queryKey: ['courses', ownerId],
+    queryFn: () => request<Array<CourseOut>>(`/courses?ownerId=${ownerId}`),
+    enabled: isEnabled,
+  });
 }
 
 //mutation : create 

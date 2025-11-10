@@ -21,7 +21,7 @@ export class UserService {
     const { sub } = jwtUser;
     const [provider, providerId] = sub.split('|');
 
-    let auth = await this.prisma.authentication.findFirst({
+    let auth = await this.prisma.authentication.findFirstOrThrow({
       where: { provider, providerId },
       include: { user: true },
     });
@@ -51,7 +51,7 @@ export class UserService {
   }
 
   async findByEmail(email: string): Promise<UserOut | null> {
-    const user = await this.prisma.user.findFirst({ where: { email } });
+    const user = await this.prisma.user.findFirstOrThrow({ where: { email } });
     return user ? this.toUserOut(user) : null;
   }
 
