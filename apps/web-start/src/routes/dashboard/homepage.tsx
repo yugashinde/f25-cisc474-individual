@@ -9,9 +9,8 @@ export const Route = createFileRoute('/dashboard/homepage')({
 export function DashboardComponent() {
   const { data: user, showLoading: userLoading, isAuthPending } = useCurrentUser();
   console.log("User from useCurrentUser:", user, "Auth pending:", isAuthPending);
-
   const { data: courses, error, isLoading: coursesLoading, refetch } = useCourses(user?.id);
-  const createCourse = useCreateCourse();
+  
   const updateCourse = useUpdateCourse();
   const deleteCourse = useDeleteCourse();
 
@@ -57,6 +56,32 @@ export function DashboardComponent() {
                 Go to {course.title} Dashboard
               </Link>
             </div>
+            <button
+                onClick={() => {
+                  const newTitle = prompt('Enter new title:', course.title);
+                  if (newTitle && newTitle !== course.title) {
+                    updateCourse.mutate(
+                      { courseId: course.courseId, name: newTitle },
+                      {
+                        onSuccess: () => {
+                          alert('Course updated!');
+                          refetch();
+                        },
+                      }
+                    );
+                  }
+                }}
+                style={{
+                  backgroundColor: 'orange',
+                  color: 'white',
+                  border: 'none',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                }}
+              >
+                Update
+              </button>
 
             <button
               onClick={() => {
