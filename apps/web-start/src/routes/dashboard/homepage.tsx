@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+
 import { useApiQuery,useCurrentUser,useCourses, useCreateCourse,useDeleteCourse,useUpdateCourse } from '../../integrations/api' // or useQuery directly
 import type { CourseOut } from '@repo/api';
 

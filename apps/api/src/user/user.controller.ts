@@ -1,7 +1,8 @@
 import {
   Controller,
-  Get,
   Param,
+  Get,
+  Post,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -16,7 +17,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('me')
+  @Post('me')
   async me(@CurrentUser() auth: JwtUser): Promise<UserOut> {
     if (!auth || !auth.userId) {
       throw new UnauthorizedException();
@@ -24,17 +25,17 @@ export class UserController {
     return this.userService.findOrCreateUser(auth);
   }
 
-  @Get()
+  @Post()
   async findAll(): Promise<UserOut[]> {
     return this.userService.findAll();
   }
 
-  @Get(':id')
+  @Post(':id')
   async findOne(@Param('id') id: string): Promise<UserOut | null> {
     return this.userService.findOne(id);
   }
 
-  @Get('by-email/:email')
+  @Post('by-email/:email')
   async findByEmail(@Param('email') email: string): Promise<UserOut | null> {
     return this.userService.findByEmail(email);
   }
