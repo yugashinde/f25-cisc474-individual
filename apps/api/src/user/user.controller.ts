@@ -17,7 +17,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @UseGuards(AuthGuard('jwt'))
-  @Post('me')
+  @Get('me')
   async me(@CurrentUser() auth: JwtUser): Promise<UserOut> {
     if (!auth || !auth.userId) {
       throw new UnauthorizedException();
@@ -25,17 +25,17 @@ export class UserController {
     return this.userService.findOrCreateUser(auth);
   }
 
-  @Post()
+  @Get()
   async findAll(): Promise<UserOut[]> {
     return this.userService.findAll();
   }
 
-  @Post(':id')
+  @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserOut | null> {
     return this.userService.findOne(id);
   }
 
-  @Post('by-email/:email')
+  @Get('by-email/:email')
   async findByEmail(@Param('email') email: string): Promise<UserOut | null> {
     return this.userService.findByEmail(email);
   }
