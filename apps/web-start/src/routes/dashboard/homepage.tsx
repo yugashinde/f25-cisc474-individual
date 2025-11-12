@@ -1,14 +1,15 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import {useCourses,useCurrentUser,useDeleteCourse,useUpdateCourse } from '../../integrations/api' // or useQuery directly
+import {useCourses,useCurrentUser,useDeleteCourse,useUpdateCourse,useApiQuery } from '../../integrations/api' // or useQuery directly
 import type { CourseOut } from '@repo/api';
+
+
 
 export const Route = createFileRoute('/dashboard/homepage')({
   component: DashboardComponent,
 })
 
 export function DashboardComponent() {
-  const { data: user, showLoading: userLoading, isAuthPending } = useCurrentUser();
-  console.log("User from useCurrentUser:", user, "Auth pending:", isAuthPending);
+  const {data :user, showLoading: userLoading, isAuthPending} = useCurrentUser();
   const { data: courses, error, isLoading: coursesLoading, refetch } = useCourses(user?.id);
   
   const updateCourse = useUpdateCourse();

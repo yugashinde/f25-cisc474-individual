@@ -16,7 +16,7 @@ function RouteComponent() {
     isAuthenticated && (
       <div>
         User Information: {JSON.stringify(user, null, 2)}
-        <Link to="/dashboard/homepage">View Courses</Link>
+        <Link to="/dashboard/homepage">View Your DataBoard</Link>
       </div>
     )
   );
