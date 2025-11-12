@@ -2,7 +2,6 @@ import {
   Controller,
   Param,
   Get,
-  Post,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';

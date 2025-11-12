@@ -21,7 +21,7 @@ export class UserService {
     const { sub } = jwtUser;
     const [provider, providerId] = sub.split('|');
 
-    let auth = await this.prisma.authentication.findFirstOrThrow({
+    const auth = await this.prisma.authentication.findFirstOrThrow({
       where: { provider, providerId },
       include: { user: true },
     });
