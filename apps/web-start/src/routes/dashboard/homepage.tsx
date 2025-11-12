@@ -18,15 +18,37 @@ export function DashboardComponent() {
   const isL = userLoading || coursesLoading;
   if (isL) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  if (!courses || courses.length === 0) {
-    return <div>No courses found.</div>;
-  }
+  const numC = courses && courses.length > 0
+  
 
   return (
     <div>
       <h1>Welcome to dashboard!</h1>
       <h1>Welcome, {user?.name}</h1>
       <h2>Select a course</h2>
+      <div> 
+      {!numC &&(
+        <div>
+          <p> You dont have any courses yet </p>
+          <button
+        
+        style={{
+          marginTop: '1rem',
+          padding: '0.5rem 1rem',
+          backgroundColor: 'lightblue',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}>
+      
+      <li>
+        <Link to="/dashboard/create">Create New Course</Link>
+      </li>
+      </button>
+      
+          </div>
+      )}
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {courses.map((course: CourseOut) => (
           <div
@@ -141,5 +163,7 @@ export function DashboardComponent() {
       </li>
       </button>
     </div>
+    
   );
+
 }
