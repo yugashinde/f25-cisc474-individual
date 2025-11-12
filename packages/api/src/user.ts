@@ -4,7 +4,7 @@ export const UserOut = z.object({
   id: z.string(),
   name: z.string().nullable(),
   email: z.string().nullable(),
-  emailVerified: z.string().datetime().nullable(),
+  //emailVerified: z.string().datetime().nullable(),
   role: z.string(),
 });
 export type UserOut = z.infer<typeof UserOut>;

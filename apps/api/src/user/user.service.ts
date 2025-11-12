@@ -9,35 +9,14 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   private toUserOut(user: User): UserOut {
+    //parsing through UserOut in a cleaner way. 
     return {
       id: user.id,
       name: user.name ?? '',
       email: user.email ?? '',
       role: user.role,
+     // emailVerified : user.emailVerified.toISOString() ?? null, 
     };
-  }
-
-  async findOrCreateUser(jwtUser: JwtUser): Promise<UserOut> {
-    const { sub } = jwtUser;
-    const [provider, providerId] = sub.split('|');
-
-    const auth = await this.prisma.authentication.findFirstOrThrow({
-      where: { provider, providerId },
-      include: { user: true },
-    });
-
-    if (!auth) {
-      const user = await this.prisma.user.create({
-        data: {
-          authentications: {
-            create: { provider, providerId },
-          },
-        },
-      });
-      return this.toUserOut(user);
-    }
-
-    return this.toUserOut(auth.user);
   }
 
   async findAll(): Promise<UserOut[]> {
@@ -45,9 +24,8 @@ export class UserService {
     return users.map((u) => this.toUserOut(u));
   }
 
-  async findOne(id: string): Promise<UserOut | null> {
-    const user = await this.prisma.user.findUnique({ where: { id } });
-    return user ? this.toUserOut(user) : null;
+  async findOne(id: string) {
+    return this.prisma.user.findFirst({ where: { id } });
   }
 
   async findByEmail(email: string): Promise<UserOut | null> {

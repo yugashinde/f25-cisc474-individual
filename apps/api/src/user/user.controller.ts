@@ -17,11 +17,18 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('me')
-  async me(@CurrentUser() auth: JwtUser): Promise<UserOut> {
+  async me(@CurrentUser() auth: JwtUser, ) {
+    console.log(auth);
     if (!auth || !auth.userId) {
       throw new UnauthorizedException();
     }
-    return this.userService.findOrCreateUser(auth);
+    const user = await this.userService.findOne(auth.userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    // Return only what your client needs (include the DB id!)
+    const {id,email,name,role} = user;
+    return {id,email,name,role}; 
   }
 
   @Get()
