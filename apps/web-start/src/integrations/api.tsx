@@ -140,7 +140,7 @@ export type CurrentUser = {
   email?: string | null;
 };
 
-//query : get current user
+// query : get current user
 export function useCurrentUser(opts?: { scope?: string }) {
   return useApiQuery<CurrentUser>(['user', 'me'], '/user/me', {
     // pass through an optional scope if your API requires it

@@ -36,6 +36,7 @@
     "@nestjs/mapped-types": "*",
     "@prisma/client": "latest",
     "@repo/api": "*",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3"
   },
   "packageManager": "npm@10.9.0",
