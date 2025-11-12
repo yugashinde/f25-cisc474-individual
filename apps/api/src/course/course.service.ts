@@ -10,6 +10,13 @@ export class CourseService {
 
   // CREATE a course
   async create(createCourseDto: CourseCreateIn) {
+    const owner = await this.prisma.user.findUnique({
+      where: { id: createCourseDto.ownerId },
+    });
+
+    if (!owner) {
+      throw new NotFoundException(`User with ID ${createCourseDto.ownerId} not found`);
+    }
     const course = await this.prisma.course.create({
       data: {
         title: createCourseDto.name,
@@ -17,7 +24,7 @@ export class CourseService {
         department: createCourseDto.department ?? '',
         credits: createCourseDto.credits ?? 0,
         owner: { connect: { id: createCourseDto.ownerId } },
-      professor: { connect: { id: createCourseDto.ownerId } }, 
+        professor: { connect: { id: 'cmhoec5aw0006rqf8th4d8cn3' } }, // professor logic adding later
       },
     });
     return {
@@ -36,7 +43,12 @@ export class CourseService {
     return this.prisma.course.findMany();
   }
 
-  // FIND ONE course by ID
+  async findOne(id: string) {
+    return this.prisma.user.findFirst({ where: { id } });
+  }
+
+
+  /*// FIND ONE course by ID
   async findOne(courseId: string) {
     const course = await this.prisma.course.findUnique({
       where: { courseId },
@@ -50,8 +62,8 @@ export class CourseService {
   
     } satisfies CourseOut;
   }
-
-  // FIND courses by ownerId
+*/
+  // FIND courses by userId // when implementing roles need to switch userId -> ownerId 
   async findByOwner(ownerId: string) {
     const courses = await this.prisma.course.findMany({
       where: { ownerId },

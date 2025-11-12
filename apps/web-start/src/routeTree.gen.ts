@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardHomepageRouteImport } from './routes/dashboard/homepage'
+import { Route as DashboardDashboardRouteImport } from './routes/dashboard/dashboard'
 import { Route as DashboardCreateRouteImport } from './routes/dashboard/create'
 import { Route as DashboardCourseIDIndexRouteImport } from './routes/dashboard/$courseID/index'
 import { Route as DashboardCourseIDGradeRouteImport } from './routes/dashboard/$courseID/grade'
@@ -31,6 +32,11 @@ const IndexRoute = IndexRouteImport.update({
 const DashboardHomepageRoute = DashboardHomepageRouteImport.update({
   id: '/dashboard/homepage',
   path: '/dashboard/homepage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
+  id: '/dashboard/dashboard',
+  path: '/dashboard/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardCreateRoute = DashboardCreateRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/dashboard/create': typeof DashboardCreateRoute
+  '/dashboard/dashboard': typeof DashboardDashboardRoute
   '/dashboard/homepage': typeof DashboardHomepageRoute
   '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
   '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/dashboard/create': typeof DashboardCreateRoute
+  '/dashboard/dashboard': typeof DashboardDashboardRoute
   '/dashboard/homepage': typeof DashboardHomepageRoute
   '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
   '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/dashboard/create': typeof DashboardCreateRoute
+  '/dashboard/dashboard': typeof DashboardDashboardRoute
   '/dashboard/homepage': typeof DashboardHomepageRoute
   '/dashboard/$courseID/assignments': typeof DashboardCourseIDAssignmentsRoute
   '/dashboard/$courseID/grade': typeof DashboardCourseIDGradeRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/dashboard/create'
+    | '/dashboard/dashboard'
     | '/dashboard/homepage'
     | '/dashboard/$courseID/assignments'
     | '/dashboard/$courseID/grade'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/dashboard/create'
+    | '/dashboard/dashboard'
     | '/dashboard/homepage'
     | '/dashboard/$courseID/assignments'
     | '/dashboard/$courseID/grade'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/dashboard/create'
+    | '/dashboard/dashboard'
     | '/dashboard/homepage'
     | '/dashboard/$courseID/assignments'
     | '/dashboard/$courseID/grade'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRoute
   DashboardCreateRoute: typeof DashboardCreateRoute
+  DashboardDashboardRoute: typeof DashboardDashboardRoute
   DashboardHomepageRoute: typeof DashboardHomepageRoute
   DashboardCourseIDAssignmentsRoute: typeof DashboardCourseIDAssignmentsRoute
   DashboardCourseIDGradeRoute: typeof DashboardCourseIDGradeRoute
@@ -157,6 +170,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard/homepage'
       fullPath: '/dashboard/homepage'
       preLoaderRoute: typeof DashboardHomepageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/dashboard': {
+      id: '/dashboard/dashboard'
+      path: '/dashboard/dashboard'
+      fullPath: '/dashboard/dashboard'
+      preLoaderRoute: typeof DashboardDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/create': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRoute,
   DashboardCreateRoute: DashboardCreateRoute,
+  DashboardDashboardRoute: DashboardDashboardRoute,
   DashboardHomepageRoute: DashboardHomepageRoute,
   DashboardCourseIDAssignmentsRoute: DashboardCourseIDAssignmentsRoute,
   DashboardCourseIDGradeRoute: DashboardCourseIDGradeRoute,
