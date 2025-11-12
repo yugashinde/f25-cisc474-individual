@@ -8,18 +8,18 @@ export const Route = createFileRoute('/dashboard/dashboard')({
 
 export function DashboardComponent() {
   const {data :user, showLoading: userLoading} = useCurrentUser();
-  //const query = useApiQuery<Array<CourseOut>>(['courses'], '/courses/ownerId');
-  const {data: courses, refetch, error, isLoadingError: coursesLoading } = useCourses(user?.id);
-  console.log("courses" + courses + " user" + user?.id )
- 
-
-  
+  const userId = user?.id ?? ''; // fallback to empty string
+  const {data: courses, refetch, error, isLoadingError: coursesLoading } = useCourses(userId);
   const updateCourse = useUpdateCourse();
   const deleteCourse = useDeleteCourse();
-  if (userLoading) return <div>Loading...</div>;
-  if (user?.id == undefined){
+
+  
+  if (userLoading) return <div>User Loading...</div>;
+  console.log("courses:", courses , ", user:" + userId )
+  if (userId == undefined){
     return "user id was undefined";
   }
+  
   if (coursesLoading) return <div> Courses loading</div>
   if (courses == undefined){
     return "courses was undefined";
@@ -27,7 +27,8 @@ export function DashboardComponent() {
   if (error) return <div>Error: {error.message}</div>;
   
   
-  const numC = courses && courses.length > 0
+  const numC = courses.length > 0
+  
   
   return (
     <div>

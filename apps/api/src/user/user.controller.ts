@@ -17,9 +17,9 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('me')
-  async me(@CurrentUser() auth: JwtUser, ) {
+  async me(@CurrentUser() auth: JwtUser ) {
     console.log(auth);
-    if (!auth || !auth.userId) {
+    if (!auth?.userId) {
       throw new UnauthorizedException();
     }
     const user = await this.userService.findOne(auth.userId);
