@@ -11,30 +11,19 @@ import { CurrentUser } from 'src/auth/current-user.decorator';
 import type { JwtUser } from 'src/auth/jwt.strategy';
 import type { UserOut } from '@repo/api/user';
 
-@UseGuards(AuthGuard('jwt'))
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('me')
-  async me(@CurrentUser() auth: JwtUser) {
-    console.log(auth);
+  async me(@CurrentUser() auth: JwtUser): Promise<UserOut> {
     if (!auth || !auth.userId) {
       throw new UnauthorizedException();
     }
-    const user = await this.userService.findOrCreateUser(auth);
-    if (!user) {
-      throw new Error('User not found');
-    }
-    // Return only what your client needs (include the DB id!)
-    return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      // optionally roles, picture, etc.
-    };
+    return this.userService.findOrCreateUser(auth);
   }
+
   @Get()
   async findAll(): Promise<UserOut[]> {
     return this.userService.findAll();

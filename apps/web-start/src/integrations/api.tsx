@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0, User } from '@auth0/auth0-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {CourseOut,CourseUpdateIn,CourseCreateIn} from "@repo/api";
 
@@ -152,13 +152,14 @@ export function useCurrentUser(opts?: { scope?: string }) {
   });
 }
 //query : get courses by ownerId
-export function useCourses(ownerId?: string) {
+export function useCourses(id?: string) {
+  
   const { request, isAuthenticated, isAuthLoading } = useApiClient();
-  const isEnabled = !!ownerId && isAuthenticated && !isAuthLoading;
+  const isEnabled = !!id && isAuthenticated && !isAuthLoading;
 
   return useQuery({
-    queryKey: ['courses', ownerId],
-    queryFn: () => request<Array<CourseOut>>(`/courses?ownerId=${ownerId}`),
+    queryKey: ['courses', id],
+    queryFn: () => request<Array<CourseOut>>(`/courses?ownerId=${id}`),
     enabled: isEnabled,
   });
 }

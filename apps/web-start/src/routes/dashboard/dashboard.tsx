@@ -17,8 +17,8 @@ export function DashboardComponent() {
   const updateCourse = useUpdateCourse();
   const deleteCourse = useDeleteCourse();
   if (userLoading) return <div>Loading...</div>;
-  if (user == undefined){
-    return "user was undefined";
+  if (user?.id == undefined){
+    return "user id was undefined";
   }
   if (coursesLoading) return <div> Courses loading</div>
   if (courses == undefined){
