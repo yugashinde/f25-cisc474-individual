@@ -146,7 +146,7 @@ export function DashboardComponent() {
             <Link to="/dashboard/create">Create a New Course</Link>
           </li>
           <li>
-            <Link to="/dashboard/homepage"> Home</Link>
+            <Link to="/dashboard/dashboard"> Home</Link>
           </li>
         </ul>
       </nav>
